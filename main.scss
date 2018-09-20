@@ -1,10 +1,23 @@
 @import "_variables.scss";
 
 @import "typography.scss";
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin media-min-width($width) {
+	@media (min-width: $width) {
+		@content;
+	}
+}
+
 html {
 	font-size: 94.75%;
-	
-	@media (min-width: 40rem) {
+	@include media-min-width(40rem){
 		font-size: 125%;
 	}
 }
@@ -15,10 +28,7 @@ body {
 }
 
 .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+	@include display-flex();
 	flex: {
 		direction: column;
 		wrap: nowrap;
@@ -36,15 +46,19 @@ body {
   margin: $size-default * 2 0;
   width: 90%;
 	box-sizing: border-box;
-	@media (min-width: 40rem) {
-		width: 30rem;
+	@include media-min-width(40rem){
+		width: 30rem;	
 	}
 }
 
-.sass-introduction p {
+.sass-introduction {
 	@extend .sass-section;
-	margin: 0;
+	box-shadow: $size-tiny $size-tiny $size-tiny / 2 #ccc;
+	p {
+		margin: 0;
+	}
 }
+
 .sass-details {
 	@extend .sass-section; 
   margin: $size-default * 2 0;
@@ -52,7 +66,6 @@ body {
 
 .section-header {
 	border-bottom: $border_default;
-	
 	h1 {
 		margin: 0 0 $size-default 0;
 	}
@@ -62,10 +75,7 @@ body {
   list-style: none;
   margin: $size-default 0 0 0;
   padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+	@include display-flex();
   flex-direction: column;
 
   li {
@@ -78,13 +88,12 @@ body {
     color: map-get($colors, main);
     display: block;
     padding: $size-tiny;
-    border: $size-tiny / 4 solid map-get($colors, main);
+		border: $size-tiny / 4 solid map-get($colors, main);
+		&:hover,
+		&:active {
+			 color: white;
+			 background: map-get($colors, secondary);
+			 border-color: map-get($colors, secondary);
+		}
   }
-
- .documentation-link:hover,
- .documentation-link:active {
-    color: white;
-    background: map-get($colors, secondary);
-    border-color: map-get($colors, secondary);
- }
 }
